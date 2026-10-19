@@ -1,0 +1,11 @@
+{
+  "name": "hmsk-late-payment",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Statutory late-payment interest for the UK and Germany, plus a ready reminder letter. Static, no dependencies.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/",
+    "start": "python3 -m http.server 8080 --directory public"
+  }
+}

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Late payment interest calculator and reminder letter (UK and Germany)</title>
+<meta name="description" content="Days overdue, statutory late-payment interest and fixed compensation for the UK and Germany, plus a ready reminder letter or Mahnung to print or save as PDF.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0B0F0C">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="app.css?v=1">
+</head>
+<body>
+
+<nav class="strip" aria-label="Site">
+  <div class="wrap strip__in">
+    <a class="strip__home" id="lnkHome" href="/tools/late-payment/">&larr; hmsk.life</a>
+    <span class="strip__sp"></span>
+    <a id="lnkImprint" href="/imprint/">Imprint</a>
+    <a id="lnkPrivacy" href="/privacy/">Privacy</a>
+    <span class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="de" aria-pressed="false">DE</button>
+    </span>
+  </div>
+</nav>
+
+<main class="wrap main">
+  <header class="head">
+    <p class="cmd"><span class="ps">$</span> <span data-i18n="cmd">late-payment --interest --letter</span></p>
+    <h1 data-i18n="h1">Late payment interest and reminder letter</h1>
+    <p class="lead" data-i18n="lead">Enter the unpaid invoice. You get the days overdue, the statutory interest and fixed compensation for the UK or Germany, and a letter ready to print or save as PDF.</p>
+  </header>
+
+  <div class="grid">
+    <form class="panel qs" id="calc" autocomplete="off" onsubmit="return false">
+      <fieldset class="q">
+        <legend><span class="flag">--law</span> <span data-i18n="q_country">Which country's law applies?</span></legend>
+        <div class="opts">
+          <label><input type="radio" name="country" value="uk"><span data-i18n="c_uk">United Kingdom</span></label>
+          <label><input type="radio" name="country" value="de"><span data-i18n="c_de">Germany</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset class="q">
+        <legend><span class="flag">--debtor</span> <span data-i18n="q_party">Who owes you the money?</span></legend>
+        <div class="opts">
+          <label><input type="radio" name="party" value="b2b"><span data-i18n="p_b2b">A business (B2B)</span></label>
+          <label><input type="radio" name="party" value="b2c"><span data-i18n="p_b2c">A consumer (B2C)</span></label>
+        </div>
+      </fieldset>
+
+      <div class="q">
+        <label class="field"><span class="flag">--amount</span> <span class="lbl"><span data-i18n="q_amount">Unpaid amount, including VAT</span> (<span id="curSym">£</span>)</span>
+          <input type="text" id="amount" name="amount" inputmode="decimal" placeholder="1000.00" required>
+        </label>
+        <p class="err" id="errAmount" hidden data-i18n="e_amount">Enter an amount above zero, for example 1250.50.</p>
+      </div>
+
+      <div class="q q--two">
+        <label class="field"><span class="flag">--due</span> <span class="lbl" data-i18n="q_due">Payment was due on</span>
+          <input type="date" id="due" name="due" required>
+        </label>
+        <label class="field"><span class="flag">--as-of</span> <span class="lbl" data-i18n="q_asof">Calculate up to</span>
+          <input type="date" id="asOf" name="asOf" required>
+        </label>
+        <p class="hint" data-i18n="h_due">The due date on the invoice. If none was agreed: 30 days after the client received the invoice (in Germany, for consumers only if the invoice said so).</p>
+        <p class="err" id="errDue" hidden></p>
+      </div>
+    </form>
+
+    <section class="panel result" id="result" aria-live="polite">
+      <p class="result__title"><span class="ps">&gt;</span> <span data-i18n="result">Your result</span></p>
+      <div id="resultBody"></div>
+    </section>
+  </div>
+
+  <section class="panel letter-panel" id="letterPanel" hidden>
+    <p class="result__title"><span class="ps">$</span> <span data-i18n="letter_cmd">cat letter.txt</span></p>
+    <h2 class="h2 h2--first" data-i18n="letter_h">Your letter</h2>
+    <p class="hint" id="letterLangNote"></p>
+
+    <fieldset class="q q--flat">
+      <legend class="sr" data-i18n="letter_kind">Letter type</legend>
+      <div class="opts" id="kindOpts">
+        <label><input type="radio" name="kind" value="reminder"><span id="kindReminder">Friendly reminder</span></label>
+        <label><input type="radio" name="kind" value="demand"><span id="kindDemand">Formal demand with interest</span></label>
+      </div>
+    </fieldset>
+
+    <div class="letter-grid">
+      <form class="details" id="details" autocomplete="on" onsubmit="return false">
+        <label class="field"><span class="flag">--from</span> <span class="lbl" data-i18n="d_from">Your name and address</span>
+          <textarea id="dFrom" rows="4" autocomplete="off"></textarea></label>
+        <label class="field"><span class="flag">--to</span> <span class="lbl" data-i18n="d_to">Client name and address</span>
+          <textarea id="dTo" rows="4" autocomplete="off"></textarea></label>
+        <label class="field"><span class="flag">--attn</span> <span class="lbl" data-i18n="d_attn">Contact person (optional, for the greeting)</span>
+          <input type="text" id="dAttn" autocomplete="off"></label>
+        <div class="q--two">
+          <label class="field"><span class="flag">--invoice</span> <span class="lbl" data-i18n="d_inv">Invoice number</span>
+            <input type="text" id="dInv" autocomplete="off"></label>
+          <label class="field"><span class="flag">--invoice-date</span> <span class="lbl" data-i18n="d_invdate">Invoice date</span>
+            <input type="date" id="dInvDate"></label>
+        </div>
+        <label class="field"><span class="flag">--pay-by</span> <span class="lbl" data-i18n="d_payby">New payment deadline</span>
+          <input type="date" id="dPayBy"></label>
+        <label class="field"><span class="flag">--bank</span> <span class="lbl" data-i18n="d_bank">Your payment details (bank, IBAN or sort code)</span>
+          <textarea id="dBank" rows="3" autocomplete="off"></textarea></label>
+        <label class="check"><input type="checkbox" id="remember"> <span data-i18n="d_remember">Remember my details on this device</span></label>
+        <p class="small"><button type="button" class="linkish" id="forgetBtn" data-i18n="d_forget">Forget everything saved here</button></p>
+      </form>
+
+      <div class="paper-wrap">
+        <article class="paper" id="paper" aria-label="Letter preview"></article>
+        <div class="actions">
+          <button type="button" class="btn btn--main" id="printBtn" data-i18n="print">Print or save as PDF</button>
+          <button type="button" class="btn btn--line" id="copyBtn" data-i18n="copy">Copy as text</button>
+          <span class="small" id="copyMsg" role="status"></span>
+        </div>
+        <div id="moment"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel next" id="next">
+    <p class="result__title"><span class="ps">$</span> <span data-i18n="next_cmd">next --step</span></p>
+    <p data-i18n="next_t">Send the next invoice with the due date and late-payment terms on it, so the next reminder is easier.</p>
+    <a class="btn btn--line" id="lnkInvoice" href="/tools/invoice/" data-i18n="next_invoice">Make an invoice with HMSK Invoice</a>
+    <p class="small" data-i18n="next_invoice_d">Free, in your browser, with XRechnung export for Germany.</p>
+  </section>
+
+  <section class="sources">
+    <p class="cmd"><span class="ps">$</span> <span data-i18n="sources_cmd">cat sources.txt</span></p>
+    <p class="small" id="asOfLine"></p>
+    <ul id="sourcesList"></ul>
+    <p class="note" id="noteLine"></p>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <p data-i18n="privacy_line">Runs in your browser. No cookies, no tracking, nothing is sent to a server. If you tick "remember", your details are kept in this browser's local storage only.</p>
+</footer>
+
+<script src="config.js"></script>
+<script src="rates.js"></script>
+<script src="logic.js"></script>
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
