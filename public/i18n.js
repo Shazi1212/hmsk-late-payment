@@ -53,7 +53,7 @@ window.LP_I18N = {
     privacy_line: 'Runs in your browser. No cookies, no tracking, nothing is sent to a server. If you tick "remember", your details are kept in this browser\'s local storage only.',
     imprint: 'Imprint', imprint_href: '/imprint/', privacy: 'Privacy', privacy_href: '/privacy/',
     home_href: '/tools/late-payment/', invoice_href: '/tools/invoice/?utm_source=late-payment&utm_medium=app&utm_campaign=late-payment-next',
-    contact_href: '/?topic=late-payment-rates#contact',
+    contact_href: '/subscribe/?topic=late-payment-rates',
   },
   de: {
     locale: 'de-DE',
@@ -107,6 +107,6 @@ window.LP_I18N = {
     privacy_line: 'Läuft im Browser. Keine Cookies, kein Tracking, nichts geht an einen Server. Wenn Sie "merken" anhaken, bleiben Ihre Angaben nur im lokalen Speicher dieses Browsers.',
     imprint: 'Impressum', imprint_href: '/impressum/', privacy: 'Datenschutz', privacy_href: '/datenschutz/',
     home_href: '/de/tools/late-payment/', invoice_href: '/de/tools/invoice/?utm_source=late-payment&utm_medium=app&utm_campaign=late-payment-next',
-    contact_href: '/de/?topic=late-payment-rates#contact',
+    contact_href: '/de/newsletter/?topic=late-payment-rates',
   },
 };

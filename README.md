@@ -25,7 +25,7 @@ Static page, no build step, no dependencies.
 python3 -m http.server 8080 --directory public   # then open http://localhost:8080
 ```
 
-Or copy `public/` to any web server. Site links (tool page, imprint, invoice tool, contact form) point to `https://hmsk.life`;
+Or copy `public/` to any web server. Site links (tool page, imprint, invoice tool, email signup) point to `https://hmsk.life`;
 change `siteBase` in `public/config.js` for your own copy.
 
 ## Rates
