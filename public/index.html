@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Late payment interest calculator and reminder letter (UK and Germany)</title>
 <meta name="description" content="Days overdue, statutory late-payment interest and fixed compensation for the UK and Germany, plus a ready reminder letter or Mahnung to print or save as PDF.">
-<meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#0B0F0C">
+<meta name="theme-color" content="#EFF1F2">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="app.css?v=1">
+<link rel="preload" href="fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="letterpress.css?v=2">
+<link rel="stylesheet" href="app.css?v=2">
 </head>
 <body>
 
@@ -26,7 +27,7 @@
 
 <main class="wrap main">
   <header class="head">
-    <p class="cmd"><span class="ps">$</span> <span data-i18n="cmd">late-payment --interest --letter</span></p>
+    <p class="eyebrow">Late Payment</p>
     <h1 data-i18n="h1">Late payment interest and reminder letter</h1>
     <p class="lead" data-i18n="lead">Enter the unpaid invoice. You get the days overdue, the statutory interest and fixed compensation for the UK or Germany, and a letter ready to print or save as PDF.</p>
   </header>
@@ -69,13 +70,13 @@
     </form>
 
     <section class="panel result" id="result" aria-live="polite">
-      <p class="result__title"><span class="ps">&gt;</span> <span data-i18n="result">Your result</span></p>
+      <p class="result__title"><span data-i18n="result">Your result</span></p>
       <div id="resultBody"></div>
     </section>
   </div>
 
   <section class="panel letter-panel" id="letterPanel" hidden>
-    <p class="result__title"><span class="ps">$</span> <span data-i18n="letter_cmd">cat letter.txt</span></p>
+    <p class="result__title"><span data-i18n="letter_cmd">Letter</span></p>
     <h2 class="h2 h2--first" data-i18n="letter_h">Your letter</h2>
     <p class="hint" id="letterLangNote"></p>
 
@@ -122,14 +123,14 @@
   </section>
 
   <section class="panel next" id="next">
-    <p class="result__title"><span class="ps">$</span> <span data-i18n="next_cmd">next --step</span></p>
+    <p class="result__title"><span data-i18n="next_cmd">Next step</span></p>
     <p data-i18n="next_t">Send the next invoice with the due date and late-payment terms on it, so the next reminder is easier.</p>
     <a class="btn btn--line" id="lnkInvoice" href="/tools/invoice/" data-i18n="next_invoice">Make an invoice with HMSK Invoice</a>
     <p class="small" data-i18n="next_invoice_d">Free, in your browser, with XRechnung export for Germany.</p>
   </section>
 
   <section class="sources">
-    <p class="cmd"><span class="ps">$</span> <span data-i18n="sources_cmd">cat sources.txt</span></p>
+    <h2 class="h2 h2--first" data-i18n="sources_cmd">Sources</h2>
     <p class="small" id="asOfLine"></p>
     <ul id="sourcesList"></ul>
     <p class="note" id="noteLine"></p>
@@ -141,9 +142,9 @@
 </footer>
 
 <script src="config.js"></script>
-<script src="rates.js"></script>
-<script src="logic.js"></script>
-<script src="i18n.js"></script>
-<script src="app.js"></script>
+<script src="rates.js?v=2"></script>
+<script src="logic.js?v=2"></script>
+<script src="i18n.js?v=2"></script>
+<script src="app.js?v=2"></script>
 </body>
 </html>
